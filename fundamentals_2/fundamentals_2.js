@@ -315,7 +315,7 @@ for (let item in fruitss) {
 }
 */
 //##############################################################################################################
-
+/*
 //challenge 2
 
 // Steven is still building his tip calculator, using the same rules as before: Tip 15% of the bill if the bill
@@ -340,20 +340,148 @@ for (let item in fruitss) {
 
 // **Solution:**
 const bills = [125, 555, 44];
-const tip = [];
-const total = [];
 
-function calcTip() {
-    for (let i = 0; i < bills.length; i++) {
-        const tipc = bills[i] >= 50 && bills[i] <= 300 ? bills[i] * (15 / 100) : bills[i] * (20 / 100);
-        tip.push(tipc)
-        console.log(tip[i]);
-        const totalsum = bills[i] + tip[i];
-        tip.push(totalsum)
+function calcTip(bill) {
+    return bill >= 50 && bill <= 300 ? bill * (15 / 100) : bill * (20 / 100);
+}
+const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])]
+const total = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]]
+console.log(bills, tips, total)
+*/
+//##############################################################################################################
+/*
+//Objects
+//Objects are variables too. But objects can contain many values.
+//The values are written as name:value pairs (name and value separated by a colon).
+//an exercsie to help you understand objects
+// **Challenge:**
+// You're asked to represent a book in your code. Each book has a title, an author, a publication year, and a genre.
+// Here is the information for the book:
 
+
+// - Title: "To Kill a Mockingbird"
+// - Author: "Harper Lee"
+// - Publication Year: 1960
+// - Genre: "Southern Gothic"
+
+// 1. Create an object named `book` to represent this book.
+// 2. Add a method `getBookInfo` to this object that returns a string in the following format: "Title by Author, published in Year. Genre: Genre"
+// 3. Add methods `setTitle`, `setAuthor`, `setPublicationYear`, and `setGenre` to the `book` object. Each method should accept one parameter and set the corresponding property to the value of that parameter.
+// 4. Call the `setTitle` method to change the title of the book to "Go Set a Watchman".
+// 5. Call the `getBookInfo` method and print the result to the console.
+
+
+
+// **Solution:**
+
+const book = {
+    Title: "To Kill a Mockingbird",
+    Author: "Harper Lee",
+    PublicationYear: 1960,
+    Genre: "Southern Gothic",
+    getBookInfo: function () {
+        return `${this.Title} by ${this.Author}, published in ${this.PublicationYear}. Genre: ${this.Genre}`
+    },
+    // `this` is a keyword that refers to the current object. In this case, `this` refers to the `book` object.
+    setTitle: function (newTitle) {
+        return this.Title = newTitle
+    },
+    setAuthor: function (newAuthor) {
+        return this.Author = newAuthor
+    },
+    setPublicationYear: function (newPublicationYear) {
+        return this.PublicationYear = newPublicationYear
+    },
+    setGenre: function (newGenre) {
+        return this.Genre = newGenre
     }
 
 }
-console.log(total);
-calcTip()
-console.log(total);
+console.log(book.getBookInfo())
+book.setAuthor('Ahmed')//change the author
+console.log(book.getBookInfo())//print the new info
+
+// In this code, `setTitle`, `setAuthor`, `setPublicationYear`, and `setGenre` are methods that set the `title`,
+// `author`, `publicationYear`, and `genre` properties of the `book` object, respectively. They do this using the
+// `this` keyword to refer to the `book` object. After calling `setTitle` to change the title of the book,
+// calling `getBookInfo` will return the updated book info.
+
+// **Note:** You can also use the `this` keyword to access properties of the current object. For example,
+// `this.Title` will return the title of the book.
+
+//to read more about the dot notation and bracket notation visit this link
+//https://www.freecodecamp.org/news/javascript-dot-notation-vs-bracket-notation-797c4e34f01d/
+//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors
+*/
+//##############################################################################################################
+/*
+//for loops
+//for loops are used to execute a block of code a number of times.
+//The `for` loop has the following syntax:
+//     for (statement 1; statement 2; statement 3) {
+//        code block to be executed
+//     }
+
+// Statement 1 is executed (one time) before the execution of the code block.
+// Statement 2 defines the condition for executing the code block.
+// Statement 3 is executed (every time) after the code block has been executed.
+
+//here is an exercise to help you understand for loops
+// **Challenge:**
+
+// You're given a list of students with their scores for four tests.
+// The score for each test is a number between 0 and 100, and the scores are represented as arrays of four numbers.
+// For example, the score array `[80, 90, 85, 70]` means that the student scored 80 on the first test,
+// 90 on the second test, 85 on the third test, and 70 on the fourth test.
+
+// The students and their scores are as follows:
+
+// - John: [80, 90, 85, 70]
+// - Mary: [85, 95, 80, 90]
+// - Bob: [70, 80, 75, 85]
+// - Susan: [90, 85, 95, 85]
+
+// You're asked to do the following:
+
+// 1. Calculate and print out the average score for each student.
+// 2. Find and print out the name of the student with the highest average score.
+// 3. Print out the names of students who scored 90 or above on the third test.
+
+// You need to use arrays, a for loop to go through the students and their scores,
+// and a nested for loop to go through each student's scores.
+// You can use `continue` to skip to the next student if a student scored less than 90 on the third test,
+// and `break` to stop the loop once you've found the student with the highest average score.
+
+// **Solution:**
+
+const students = [
+    { name: "John", scores: [80, 90, 85, 70] },
+    { name: "Marry", scores: [85, 95, 80, 90] },
+    { name: "Bob", scores: [70, 80, 75, 85] },
+    { name: "Susan", scores: [90, 85, 95, 85] }
+]
+let highestAverageScore = 0;
+let studentWithHighestAverage;
+for (let i = 0; i < students.length; i++) {
+    let totalScore = 0;
+    for (let j = 0; j < students[i].scores.length; j++) {
+        totalScore += students[i].scores[j];
+    }
+    let averageScore = totalScore / students[i].scores.length;
+    const avgS = [];
+    avgS.push(averageScore)
+    console.log(`${students[i].name}'s total score is ${totalScore}, the average score is ${averageScore}`);
+    //highestAverageScore = Math.max(avgS)
+    if (averageScore > highestAverageScore) {
+        highestAverageScore = averageScore;
+        studentWithHighestAverage = students[i].name;
+    }
+
+    if (students[i].scores[2] < 90) {
+        continue;
+    }
+    console.log(students[i].name + " scored 90 or above on the third test");
+}
+console.log(`The highest average score is ${highestAverageScore} `)
+*/
+//##############################################################################################################
