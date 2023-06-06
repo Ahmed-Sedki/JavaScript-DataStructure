@@ -53,3 +53,42 @@ dog.bark();  // Outputs: "Rover barks."
 // This is the old way of creating classes and implementing inheritance in JavaScript.
 // It's a bit clunky compared to the ES6 `class` and `extends` keywords, but it's still important to understand because you might encounter it
 // in older code.
+
+//Extended ersion of the code above 
+
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.eat = function() {
+  console.log(this.name + ' eats.');
+};
+
+function Dog(name) {
+  Animal.call(this, name);
+}
+
+Dog.prototype = Object.create(Animal.prototype);  // Dog's prototype is now an instance of Animal
+Dog.prototype.constructor = Dog;  // Reset the constructor to Dog
+
+Dog.prototype.bark = function() {
+  console.log(this.name + ' barks.');
+};
+
+dog = new Dog('Rover');
+
+console.log(dog);  // Outputs: Dog { name: 'Rover' }
+console.log(dog.__proto__);  // Outputs: Animal {}
+console.log(dog.__proto__.__proto__);  // Outputs: { eat: [Function] }
+
+dog.eat();  // Outputs: "Rover eats."
+dog.bark();  // Outputs: "Rover barks."
+
+// The `__proto__` property is a reference to the prototype of the object. 
+// When `dog.eat()` is called, JavaScript first looks for a property called `eat` on the `dog` object itself.
+// If it doesn't find one, it looks at the prototype of `dog`, which is `Dog.prototype`.
+// It doesn't find an `eat` method there either, so it looks at the prototype of `Dog.prototype`,
+// which is `Animal.prototype`, and there it finds the `eat` method.
+// So the `dog` object can access the `eat` method because it's in its prototype chain: `dog` -> `Dog.prototype` -> `Animal.prototype`.
+// The `bark` method, on the other hand, is found directly on `Dog.prototype`, so when `dog.bark()` is called,
+// JavaScript finds it on the first prototype it checks.
