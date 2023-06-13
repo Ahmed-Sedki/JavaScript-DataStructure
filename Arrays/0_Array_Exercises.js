@@ -52,3 +52,46 @@ const reverseString2 = str => [...str].reverse().join('');
 console.log(reverse(inputString))
 */
 //##########################################################################################################################################
+/*
+//create a function that merges two sorted arrays
+//Example:
+//mergeSortedArrays([0,3,4,31], [3,4,6,30]) should be [0,3,3,4,4,6,30,31]
+
+
+//Solution
+function mergeSortedArrays(array1, array2) {
+    let mergedArray = [];
+    let array1Index = 0;
+    let array2Index = 0;
+
+    // Compare elements from array1 and array2
+    // And always add the smallest one into the mergedArray
+    while (array1Index < array1.length && array2Index < array2.length) {
+        if (array1[array1Index] < array2[array2Index]) {
+            mergedArray.push(array1[array1Index]);
+            array1Index++; // move to the next element in array1
+        } else {
+            mergedArray.push(array2[array2Index]);
+            array2Index++; // move to the next element in array2
+        }
+    }
+
+    // If there are remaining elements in array1, add them to mergedArray
+    while (array1Index < array1.length) {
+        mergedArray.push(array1[array1Index]);
+        array1Index++;
+    }
+
+    // If there are remaining elements in array2, add them to mergedArray
+    while (array2Index < array2.length) {
+        mergedArray.push(array2[array2Index]);
+        array2Index++;
+    }
+
+    return mergedArray;
+}
+
+console.log(mergeSortedArrays([0,3,4,31], [3,4,6,30]));  // Outputs: [0, 3, 3, 4, 4, 6, 30, 31]
+*/
+
+
